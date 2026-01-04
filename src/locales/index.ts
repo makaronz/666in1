@@ -8,6 +8,7 @@ import ruRU from './ru-RU'
 import viVn from './vi-VN'
 import frFr from './fr-FR'
 import trTr from './tr-TR'
+import plPL from './pl-PL'
 import { useAppStoreWithOut } from '@/store/modules/app'
 import type { Language } from '@/store/modules/app/helper'
 
@@ -28,6 +29,7 @@ const i18n = createI18n({
     'vi-VN': viVn,
     'fr-FR': frFr,
     'tr-TR': trTr,
+    'pl-PL': plPL,
   },
 })
 

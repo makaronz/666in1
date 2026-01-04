@@ -5,7 +5,7 @@ const LOCAL_NAME = 'appSetting'
 
 export type Theme = 'light' | 'dark' | 'auto'
 
-export type Language = 'zh-CN' | 'zh-TW' | 'en-US' | 'ko-KR' | 'ru-RU' | 'vi-VN' | 'fr-FR' | 'tr-TR'
+export type Language = 'zh-CN' | 'zh-TW' | 'en-US' | 'ko-KR' | 'ru-RU' | 'vi-VN' | 'fr-FR' | 'tr-TR' | 'pl-PL'
 
 export interface AppState {
   siderCollapsed: boolean
@@ -30,6 +30,8 @@ export function defaultSetting(): AppState {
         content = 'vi-VN'; // 越南语
     } else if (userLang.startsWith('tr')) {
         content = 'tr-TR'; // 土耳其语
+    } else if (userLang.startsWith('pl')) {
+        content = 'pl-PL'; // 波兰语
     } else {
         content = 'en-US'; // 英语
     }
