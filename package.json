@@ -1,6 +1,6 @@
 {
   "name": "chatgpt-web-midjourney-proxy",
-  "version": "2.25.9",
+  "version": "2.26.5",
   "private": false,
   "description": "ChatGPT Web Midjourney Proxy",
   "author": "Dooy <ydlhero@gmail.com>",
@@ -96,6 +96,9 @@
     "vite-plugin-static-copy": "^0.17.0",
     "vitest": "^1.0.0",
     "vue-tsc": "^1.2.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild", "vue-demi"]
   },
   "lint-staged": {
     "*.{ts,tsx,vue}": [

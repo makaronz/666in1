@@ -409,7 +409,10 @@ return DEFAULT_SYSTEM_TEMPLATE;
 }
 
 export const isNewModel=(model:string)=>{
-    return model.startsWith('o1-') ||   model.includes('gpt-5')
+    return model.startsWith('o1-')// ||   model.includes('gpt-5')
+}
+export const isClaudeModel=(model:string)=>{
+    return model.includes('claude')
 }
 export const subModel= async (opt: subModelType)=>{
     //
@@ -418,6 +421,7 @@ export const subModel= async (opt: subModelType)=>{
     let temperature= 0.5;
     let top_p= 1;
     let presence_penalty= 0 , frequency_penalty=0;
+    let forbidden_stream= false
     if(opt.uuid){
         const chatSet= new chatSetting( +opt.uuid);
         const gStore= chatSet.getGptConfig();
@@ -426,6 +430,7 @@ export const subModel= async (opt: subModelType)=>{
         presence_penalty = gStore.presence_penalty??presence_penalty;
         frequency_penalty = gStore.frequency_penalty??frequency_penalty;
         max_tokens= gStore.max_tokens;
+        forbidden_stream= gStore.forbidden_stream?gStore.forbidden_stream:false
     }
     if(model=='gpt-4-vision-preview' && max_tokens>2048) max_tokens=2048;
 
@@ -437,21 +442,29 @@ export const subModel= async (opt: subModelType)=>{
     let body:any ={
             max_tokens ,
             model ,
-            temperature,
-            top_p,
-            presence_penalty ,frequency_penalty,
+           temperature,
+           top_p,
+           presence_penalty ,frequency_penalty,
             "messages": opt.message
-           ,stream:true
+           ,stream:!forbidden_stream
         }
-    if(isNewModel(model)){
+    if(isClaudeModel(model)){
+        body ={
+            max_completion_tokens:max_tokens ,
+            model , 
+            "messages": opt.message
+           ,stream:!forbidden_stream
+        }
+    }else if(isNewModel(model)){
         body ={
             max_completion_tokens:max_tokens ,
             model ,
             //temperature,
-            top_p,
-            presence_penalty ,frequency_penalty,
+            //top_p,
+           // presence_penalty ,frequency_penalty,
             "messages": opt.message
-           ,stream:false
+           //,stream:false
+           ,stream:!forbidden_stream
         }
     }
     if(body.stream){ 
@@ -506,10 +519,15 @@ export const subModel= async (opt: subModelType)=>{
             opt.onMessage({text: t('mj.thinking') ,isFinish: false })
             let obj :any= await gptFetch( '/v1/chat/completions',body  )
             //mlog('结果 >>',obj   )
-            opt.onMessage({text:obj.choices[0].message.content??'' ,isFinish: true ,isAll:true})
+            try {
+                opt.onMessage({text:obj.choices[0].message.content??'' ,isFinish: true ,isAll:true})
+            } catch (error) {
+                mlog('❌未错误4', obj )
+                opt.onError && opt.onError(obj)
+            }     
             
         } catch (error ) {
-            mlog('❌未错误2',error  )
+            mlog('❌未错误3',error  )
             opt.onError && opt.onError(error)
         }
     }

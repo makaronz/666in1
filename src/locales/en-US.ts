@@ -67,6 +67,18 @@ export default {
     chatHistory: 'ChatHistory',
     theme: 'Theme',
     language: 'Language',
+    webdavSync: 'WebDAV Sync',
+    webdavConfig: 'Configuration',
+    webdavUrl: 'WebDAV URL',
+    webdavUsername: 'Username',
+    webdavPassword: 'Password',
+    webdavConfigError: 'Please fill in the complete WebDAV configuration',
+    webdavNotConfigured: 'Please configure WebDAV first',
+    webdavSyncSuccess: 'Sync successful',
+    webdavSyncError: 'Sync failed',
+    webdavTest: 'Test Connection',
+    webdavUpload: 'Upload',
+    webdavDownload: 'Download',
     api: 'API',
     reverseProxy: 'Reverse Proxy',
     timeout: 'Timeout',
@@ -551,6 +563,9 @@ export default {
     moban2: "Template Name",
     use: "Use"
   }
+  ,'录音':'Record'
+  ,'禁用stream':'Forbidden Stream'
+   ,'当禁用stream时,则使用非流式数据':'When streaming is disabled, non-streaming data is used.'
 
 
 

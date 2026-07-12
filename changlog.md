@@ -1,9 +1,28 @@
 # 功能升级日志
 
 #  计划 
+# 2.26.5
+- 😄 新增对话 禁用stream模式 设置
+# 2.26.4
+- 修复报错信息空信息
+- dalle图片接口 size 可以自行填写
+- gpt-image 开头允许上传
+
+# 2.26.3
+- 画图 支持 gpt-image-2
+- 🐞 修复：chat top参数等问题
+
+# 2.26.2
+- suno 支持 v5.5
+- suno 支持 录音上传
+
+# 2.25.11
+- feat: 添加 WebDAV 聊天记录同步功能 #665
+
 # 2.25.10
-- 😄 新增画图：nano-banana-2
+- 😄 新增画图：nano-banana-2 gpt-image-1.5 gemini-3.1-flash-image-preivew
 - 😄 新增对话：`gpt-5.1`、`gemini-3-pro-preview`,`grok-4.1`
+- 2026第一个版本
 
 # 2.25.9
 - 🐞 修复：mj显示双图

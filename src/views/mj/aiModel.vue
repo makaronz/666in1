@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {NSelect, NInput,NSlider, NButton, useMessage,NTag,NPopselect ,NAvatar, NText} from "naive-ui"
+import {NSelect, NInput,NSlider, NButton, useMessage,NTag,NPopselect ,NAvatar, NSwitch} from "naive-ui"
 import type { SelectRenderLabel, SelectRenderTag } from 'naive-ui'
 import { ref ,computed,watch, onMounted,h} from "vue";
 import {gptConfigStore, homeStore,useChatStore} from '@/store'
@@ -17,15 +17,17 @@ const chatSet = new chatSetting( uuid==null?1002:uuid);
 
 const nGptStore = ref(  chatSet.getGptConfig() );
 
+// 'claude-3-7-sonnet-20250219'
+// ,'claude-3-5-sonnet-20241022','claude-3-sonnet-20240229','claude-3-opus-20240229','claude-3-haiku-20240307','claude-3-5-sonnet-20240620','suno-v3'
+
 const config = ref({
-model:[ 'gpt-5.1','gemini-3-pro-preview','grok-4.1','gpt-5','gpt-5-mini','gpt-5-nano','o1','o1-2024-12-17', 'gpt-4-turbo-2024-04-09','o1-preview','o1-mini','o1-preview-2024-09-12','o1-mini-2024-09-12','chatgpt-4o-latest','gpt-4o-2024-11-20','gpt-4o-2024-08-06','gpt-4o-2024-05-13','gpt-4o-mini-2024-07-18','gpt-4o-mini','gpt-4o','gpt-4-turbo','gpt-4-0125-preview','gpt-3.5-turbo',`gpt-4-1106-preview`,`gpt-3.5-turbo-16k`,'gpt-4','gpt-4-0613','gpt-4-32k-0613' ,'gpt-4-32k','gpt-4-32k-0314',`gpt-3.5-turbo-16k-0613`
+model:['gpt-5.5', 'gpt-5.4','gpt-5.1','gemini-3.1-pro-preview','gemini-3-pro-preview','grok-4','gpt-5','gpt-5.5-mini','gpt-5.4-nano','o1','o1-2024-12-17', 'gpt-4-turbo-2024-04-09','o1-preview','o1-mini','o1-preview-2024-09-12','o1-mini-2024-09-12','chatgpt-4o-latest','gpt-4o-2024-11-20','gpt-4o-2024-08-06','gpt-4o-2024-05-13','gpt-4o-mini-2024-07-18','gpt-4o-mini','gpt-4o','gpt-4-turbo','gpt-4-0125-preview','gpt-3.5-turbo',`gpt-4-1106-preview`,`gpt-3.5-turbo-16k`,'gpt-4','gpt-4-0613','gpt-4-32k-0613' ,'gpt-4-32k','gpt-4-32k-0314',`gpt-3.5-turbo-16k-0613`
 ,`gpt-4-vision-preview`,`gpt-3.5-turbo-1106` ,'gpt-3.5-turbo-0125'
 ,'gpt-3.5-turbo-0301','gpt-3.5-turbo-0613','gpt-4-all','gpt-3.5-net'
-,'gemini-pro',"gemini-pro-vision",'gemini-pro-1.5',"gemini-1.5-pro-exp-0801"
-,'claude-3-7-sonnet-20250219'
-,'claude-3-5-sonnet-20241022','claude-3-sonnet-20240229','claude-3-opus-20240229','claude-3-haiku-20240307','claude-3-5-sonnet-20240620','suno-v3'
-,'deepseek-r1','deepseek-v3'
-,'grok-3','grok-3-reasoner','grok-3-deepsearch'
+,'gemini-3-flash-preview',"gemini-3.1-flash"
+,'claude-sonnet-4-6','claude-opus-4-7','claude-opus-4-6','claude-haiku-4-5'
+,'deepseek-r1','deepseek-v3','deepseek-v3.2','deepseek-v4-flash','deepseek-v4-pro'
+,'grok-4.2','grok-4.1' 
 ,'gpt-4.5-preview-2025-02-27','gpt-4.5-preview'
 ]
 ,maxToken:16384
@@ -194,6 +196,13 @@ const serverSuccess=(s:any)=>{
 </section>
 <div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mjchat.historyTCntInfo') }}  </div>
 
+<!--禁用stream-->
+<section  class=" flex justify-between items-center" >
+     <div> {{ $t('禁用stream') }}</div>
+     <div><n-switch v-model:value="nGptStore.forbidden_stream" size="small" /></div>
+</section>
+<div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('当禁用stream时,则使用非流式数据') }}  </div>
+
  <section class="mb-4"  >
     <div>{{ $t('mjchat.role') }}</div>
     <div>
@@ -245,6 +254,8 @@ const serverSuccess=(s:any)=>{
         <div >{{ $t('mj.tts_voice') }}</div>
         <n-select v-model:value="nGptStore.tts_voice" :options="voiceList" size="small"  class="!w-[50%]"   />
     </section>
+
+    
 
 
 </template>
